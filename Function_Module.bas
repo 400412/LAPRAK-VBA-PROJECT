@@ -1,21 +1,25 @@
 ' 1. Menghitung Ketidakpastian dengan banyak data n
+    ' Ngitung delta kalau datanya selain n = 3 atau n = 5
 Public Function DELTA_n(n As Integer, SIGMA As Double, SIGMA_KUADRAT As Double) As Double
 
     DELTA_n = (1 / n) * (((n * SIGMA_KUADRAT - SIGMA ^ 2) / (n - 1)) ^ 0.5)
 
 End Function
+
 ' 2. Menghitung Ketidakpastian dengan banyak data 3
 Public Function DELTA_3(SIGMA As Double, SIGMA_KUADRAT As Double) As Double
 
     DELTA_3 = (1 / 3) * (((3 * SIGMA_KUADRAT - SIGMA ^ 2) / (2)) ^ 0.5)
     
 End Function
+
 ' 3. Menghitung Ketidakpastian dengan banyak data 5
 Public Function DELTA_5(SIGMA As Double, SIGMA_KUADRAT As Double) As Double
 
     DELTA_5 = (1 / 5) * (((5 * SIGMA_KUADRAT - SIGMA ^ 2) / (4)) ^ 0.5)
     
 End Function
+
 ' 4. Menghitung Ketidakpastian Relatif (KSR) dalam %
 Public Function KSR(RATA_RATA As Double, DELTA As Double) As String
     Dim Tahap_1 As Double
@@ -26,6 +30,7 @@ Public Function KSR(RATA_RATA As Double, DELTA As Double) As String
     KSR = Replace(Tahap_2, ".", ",")
 
 End Function
+
 ' 5. Menghitung Angka Penting (AP)
 Public Function ANGKA_PENTING(KSR As String) As String
     Dim Tahap_1 As String
@@ -54,7 +59,13 @@ Public Function ANGKA_PENTING(KSR As String) As String
     End If
     
 End Function
+
 ' 6. Pembulatan Ketidapastian sesuai AP
+    ' Pembulatan yg berdasarkan Angka Penting
+    ' Misalnya NILAI = 0,0000035726278, AP = 4 AP, maka PEMBULATAN = 0,000003573
+    ' Misalnya NILAI = 0,0000035726278, AP = 3 AP, maka PEMBULATAN = 0,00000357
+    ' Misalnya NILAI = 0,0000035726278, AP = 2 AP, maka PEMBULATAN = 0,0000036
+    ' Misalnya NILAI = 0,0000035726278, AP = 1 AP / ERROR, maka PEMBULATAN = 0,000004
 Public Function PEMBULATAN(NILAI As Double, AP As String) As Double
     Dim Tahap_1 As Double
     Dim Tahap_2 As Double
@@ -87,7 +98,9 @@ Public Function PEMBULATAN(NILAI As Double, AP As String) As Double
     End If
 
 End Function
-'7. Menghitung a (GRAFIK)
+
+'7. Menghitung a atau b (GRAFIK)
+    'Dipake khusus buat ngitung hasil a di grafik
 Public Function a(n As Integer, x As Double, Y As Double, X_KUADRAT As Double, XY As Double) As Double
     Dim atas As Double
     Dim bawah As Double
@@ -97,7 +110,9 @@ Public Function a(n As Integer, x As Double, Y As Double, X_KUADRAT As Double, X
     a = atas / bawah
 
 End Function
-'8. Menghitung b (GRAFIK)
+
+'8. Menghitung b atau m atau gradien (GRAFIK)
+    'Dipake khusus buat ngitung hasil b di grafik
 Public Function b(n As Integer, x As Double, Y As Double, X_KUADRAT As Double, XY As Double) As Double
     Dim atas As Double
     Dim bawah As Double
@@ -107,13 +122,18 @@ Public Function b(n As Integer, x As Double, Y As Double, X_KUADRAT As Double, X
     b = atas / bawah
 
 End Function
+
 '9. Menghitung y (GRAFIK)
+    'Dipake khusus buat ngitung hasil y di grafik
 Public Function Y(a As Double, b As Double, x As Double) As Double
 
     Y = a + (b * x)
 
 End Function
+
 '10. Menghitung HASIL
+    'Buat ngitung hasil akhir dengan ngegabungin Rata-rata dan delta
+    'Formatnya sesuai dengan notasi ilmiah (*10^)
 Public Function HASIL(RATA_RATA As Double, DELTA As Double, AP As String) As String
     Dim a1 As String
     Dim a2 As String
@@ -149,7 +169,10 @@ Public Function HASIL(RATA_RATA As Double, DELTA As Double, AP As String) As Str
     End If
     
 End Function
-'11. Menghitung HASIL (sesuai format equation di ms word)
+
+'11. Menghitung HASIL (sesuai format equation di Microsoft Word)
+    'Buat ngitung hasil akhir dengan ngegabungin Rata-rata dan delta
+    'Formatnya sesuai dengan equation di Microsoft Word (tinggal diconvert)
 Public Function HASIL_EQU(RATA_RATA As Double, DELTA As Double, AP As String) As String
     Dim a1 As String
     Dim a2 As String
